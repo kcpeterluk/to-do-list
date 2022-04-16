@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from 'src/app/models/item';
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-list',
@@ -6,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.sass']
 })
 export class ListComponent implements OnInit {
-  items:string[] = ["Item 1", "Item 2", "Item 3", "Item 4"];
+  items:Item[] = this.listService.getItems();
 
-  constructor() { }
+  constructor(private listService: ListService) { }
 
   ngOnInit(): void {
   }
