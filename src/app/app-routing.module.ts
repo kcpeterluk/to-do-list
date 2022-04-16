@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { NewItemComponent } from './new-item/new-item.component';
+import { ListComponent } from './pages/list/list.component';
+import { NewItemComponent } from './pages/new-item/new-item.component';
 
 const routes: Routes = [
   { path: "", component: ListComponent },
@@ -13,3 +13,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

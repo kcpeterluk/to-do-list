@@ -11,9 +11,9 @@ import { MatInputModule } from '@angular/material/input'
 import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { ListComponent } from './list/list.component';
-import { NewItemComponent } from './new-item/new-item.component';
+import { TopBarComponent } from './pages/top-bar/top-bar.component';
+import { ListComponent } from './pages/list/list.component';
+import { NewItemComponent } from './pages/new-item/new-item.component';
 
 @NgModule({
   declarations: [
