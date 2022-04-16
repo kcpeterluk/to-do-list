@@ -8,6 +8,7 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./list.component.sass']
 })
 export class ListComponent implements OnInit {
+  
   items:Item[] = this.listService.getItems();
 
   constructor(private listService: ListService) { }

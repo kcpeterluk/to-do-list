@@ -5,7 +5,8 @@ import { Item } from '../models/item';
   providedIn: 'root'
 })
 export class ListService {
-  items: Item[] = [
+  
+  private items: Item[] = [
     { Description: "My item 1" },
     { Description: "My item 2" },
     { Description: "My item 3" },
@@ -26,4 +27,5 @@ export class ListService {
     this.items = [];
     return this.items;
   }
+
 }
