@@ -3,6 +3,9 @@
     <mat-list-item role="listitem" *ngFor="let item of items, index as i">
       {{ item.Description }}
       <span class="spacer"></span>
+      <a mat-icon-button aria-label="add to do list icon" routerLink="/edit/{{item.Id}}">
+        <mat-icon>edit</mat-icon>
+      </a>
       <button mat-icon-button (click)="removeFromList(i)">
         <mat-icon>delete</mat-icon>
       </button>
