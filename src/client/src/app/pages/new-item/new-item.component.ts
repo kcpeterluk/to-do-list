@@ -32,5 +32,9 @@ export class NewItemComponent implements OnInit {
     this.listService.addToList(item);
     this.router.navigate(['/'], {relativeTo:this.route});
   }
+
+  onCancel(): void {
+    this.router.navigate(['/'], {relativeTo:this.route});
+  }
   
 }
