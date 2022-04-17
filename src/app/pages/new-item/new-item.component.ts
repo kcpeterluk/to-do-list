@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder  } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/models/item';
 import { ListService } from 'src/app/services/list.service';
 
@@ -16,7 +17,9 @@ export class NewItemComponent implements OnInit {
 
   constructor(
     private listService: ListService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +34,7 @@ export class NewItemComponent implements OnInit {
       Description: this.newItemForm.value.description
     };
     this.listService.addToList(item);
+    this.router.navigate(['/'], {relativeTo:this.route});
   }
   
 }
