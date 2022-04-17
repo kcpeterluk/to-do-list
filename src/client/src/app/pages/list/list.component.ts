@@ -13,11 +13,6 @@ export class ListComponent implements OnInit {
 
   constructor(private listService: ListService) { }
 
-  ngOnInit(): void {
-  }
-
-  removeFromList(i: number) {
-    this.listService.removeFromList(i);
-  }
+  ngOnInit(): void { }
 
 }

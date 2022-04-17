@@ -42,7 +42,12 @@ export class EditItemComponent implements OnInit {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 
-  onCancel(): void {
+  onRemoveClick(): void {
+    this.listService.removeFromList(this.itemForm.value.id);
+    this.router.navigate(['/'], {relativeTo:this.route});
+  }
+
+  onCancelClick(): void {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 

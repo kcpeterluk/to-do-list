@@ -33,7 +33,7 @@ export class NewItemComponent implements OnInit {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 
-  onCancel(): void {
+  onCancelClick(): void {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
   

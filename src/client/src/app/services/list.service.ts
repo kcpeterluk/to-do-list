@@ -30,8 +30,9 @@ export class ListService {
     this.items[index] = item;
   }
 
-  removeFromList(i: number) {
-    this.items.splice(i, 1);
+  removeFromList(id: number) {
+    const index = this.items.findIndex(e => e.Id == id);
+    this.items.splice(index, 1);
   }
 
   getItems() {
