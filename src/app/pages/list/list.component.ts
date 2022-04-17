@@ -16,4 +16,8 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  removeFromList(i: number) {
+    this.listService.removeFromList(i);
+  }
+
 }

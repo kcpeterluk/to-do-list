@@ -19,6 +19,10 @@ export class ListService {
     this.items.push(item);
   }
 
+  removeFromList(i: number) {
+    this.items.splice(i, 1);
+  }
+
   getItems() {
     return this.items;
   }
