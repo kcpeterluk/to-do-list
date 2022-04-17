@@ -1,8 +1,10 @@
-<form class="new-item-form" [formGroup]="newItemForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="new-item-form-field" appearance="fill">
-    <mat-label for="description">Input</mat-label>
-    <input matInput placeholder="Ex. Buy milk" id="description" type="text" formControlName="description">
-  </mat-form-field>
+<div>
+  <form class="new-item-form" [formGroup]="newItemForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="new-item-form-field" appearance="fill">
+      <mat-label for="description">Task:</mat-label>
+      <input matInput placeholder="Add a task" id="description" type="text" formControlName="description">
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Add</button>
-</form>
+    <button mat-raised-button color="primary" type="submit">Add</button>
+  </form>
+</div>
