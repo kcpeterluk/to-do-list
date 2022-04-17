@@ -42,4 +42,8 @@ export class EditItemComponent implements OnInit {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 
+  onCancel(): void {
+    this.router.navigate(['/'], {relativeTo:this.route});
+  }
+
 }
