@@ -15,19 +15,23 @@ export class ListService {
 
   constructor() { }
 
-  addToList(item: Task) {
+  addToList(description: string) {
     const nextId = this.getNextId();
-    item.Id = nextId;
+    const item: Task = {
+      Id: nextId,
+      Description: description,
+      Done: false
+    };
     this.items.push(item);
   }
 
   private getNextId(): number {
-    return Math.max(...this.items.map(e => e.Id));
+    return Math.max(...this.items.map(e => e.Id)) + 1;
   }
 
-  updateItem(item: Task) {
-    const index = this.items.findIndex(e => e.Id == item.Id);
-    this.items[index] = item;
+  updateItem(id: number, description: string) {
+    const index = this.items.findIndex(e => e.Id == id);
+    this.items[index].Description = description;
   }
 
   removeFromList(id: number) {

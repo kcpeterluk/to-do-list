@@ -11,6 +11,8 @@ import { ListService } from 'src/app/services/list.service';
 })
 export class EditItemComponent implements OnInit {
 
+  private taskId: number = 0;
+
   itemForm = this.formBuilder.group({
     description: ''
   });
@@ -24,23 +26,16 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const idFromRoute = Number(routeParams.get('id'));
-    const item = this.listService.getItem(idFromRoute);
+    this.taskId = Number(routeParams.get('id'));
+    const item = this.listService.getItem(this.taskId);
     if (item)
       this.itemForm = this.formBuilder.group({
-        id: item.Id,
         description: item.Description,
-        done: item.Done
       });
   }
 
   onSubmit(): void {
-    let item: Task = {
-      Id: this.itemForm.value.id,
-      Description: this.itemForm.value.description,
-      Done: this.itemForm.value.done
-    };
-    this.listService.updateItem(item);
+    this.listService.updateItem(this.taskId, this.itemForm.value.description);
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 

@@ -25,12 +25,7 @@ export class NewItemComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    let item: Task = {
-      Id: 0,
-      Description: this.itemForm.value.description,
-      Done: false
-    };
-    this.listService.addToList(item);
+    this.listService.addToList(this.itemForm.value.description);
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 
