@@ -15,16 +15,16 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 
 import { TopBarComponent } from './pages/top-bar/top-bar.component';
 import { ListComponent } from './pages/list/list.component';
-import { NewItemComponent } from './pages/new-item/new-item.component';
-import { EditItemComponent } from './pages/edit-item/edit-item.component';
+import { NewTaskComponent } from './pages/new-task/new-task.component';
+import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     ListComponent,
-    NewItemComponent,
-    EditItemComponent
+    NewTaskComponent,
+    EditTaskComponent
   ],
   imports: [
     BrowserModule,

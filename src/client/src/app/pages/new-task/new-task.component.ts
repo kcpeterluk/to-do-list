@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder  } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from 'src/app/models/task';
-import { ListService } from 'src/app/services/list.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
-  selector: 'app-new-item',
-  templateUrl: './new-item.component.html',
-  styleUrls: ['./new-item.component.sass']
+  selector: 'app-new-task',
+  templateUrl: './new-task.component.html',
+  styleUrls: ['./new-task.component.sass']
 })
-export class NewItemComponent implements OnInit {
+export class NewTaskComponent implements OnInit {
 
   itemForm = this.formBuilder.group({
     description: ''
   });
 
   constructor(
-    private listService: ListService,
+    private listService: TaskService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router
@@ -25,7 +24,7 @@ export class NewItemComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.listService.addToList(this.itemForm.value.description);
+    this.listService.newTask(this.itemForm.value.description);
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 
