@@ -9,10 +9,14 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class ListComponent implements OnInit {
   
-  items:Task[] = this.listService.getTasks();
+  items:Task[] = this.taskService.getTasks();
 
-  constructor(private listService: TaskService) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void { }
+
+  toggleTaskStatus(id: number) {
+    this.taskService.toggleTaskStatus(id);
+  }
 
 }

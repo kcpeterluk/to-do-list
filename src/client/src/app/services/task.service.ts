@@ -30,6 +30,11 @@ export class TaskService {
     this.tasks[index].Description = description;
   }
 
+  toggleTaskStatus(id: number) {
+    const index = this.tasks.findIndex(e => e.Id == id);
+    this.tasks[index].Done = !this.tasks[index].Done;
+  }
+
   removeTask(id: number) {
     const index = this.tasks.findIndex(e => e.Id == id);
     this.tasks.splice(index, 1);
