@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from 'src/app/models/item';
+import { Task } from 'src/app/models/task';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -29,14 +29,16 @@ export class EditItemComponent implements OnInit {
     if (item)
       this.itemForm = this.formBuilder.group({
         id: item.Id,
-        description: item.Description
+        description: item.Description,
+        done: item.Done
       });
   }
 
   onSubmit(): void {
-    let item: Item = {
+    let item: Task = {
       Id: this.itemForm.value.id,
-      Description: this.itemForm.value.description
+      Description: this.itemForm.value.description,
+      Done: this.itemForm.value.done
     };
     this.listService.updateItem(item);
     this.router.navigate(['/'], {relativeTo:this.route});

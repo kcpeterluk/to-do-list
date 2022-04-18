@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder  } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from 'src/app/models/item';
+import { Task } from 'src/app/models/task';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -25,9 +25,10 @@ export class NewItemComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    let item: Item = {
+    let item: Task = {
       Id: 0,
-      Description: this.itemForm.value.description
+      Description: this.itemForm.value.description,
+      Done: false
     };
     this.listService.addToList(item);
     this.router.navigate(['/'], {relativeTo:this.route});

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Item } from '../models/item';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
   
-  private items: Item[] = [
-    { Id: 1, Description: "My item 1" },
-    { Id: 2, Description: "My item 2" },
-    { Id: 3, Description: "My item 3" },
-    { Id: 4, Description: "My item 4" }
+  private items: Task[] = [
+    { Id: 1, Description: "My item 1", Done: false },
+    { Id: 2, Description: "My item 2", Done: false },
+    { Id: 3, Description: "My item 3", Done: false },
+    { Id: 4, Description: "My item 4", Done: false }
   ];
 
   constructor() { }
 
-  addToList(item: Item) {
+  addToList(item: Task) {
     const nextId = this.getNextId();
     item.Id = nextId;
     this.items.push(item);
@@ -25,7 +25,7 @@ export class ListService {
     return Math.max(...this.items.map(e => e.Id));
   }
 
-  updateItem(item: Item) {
+  updateItem(item: Task) {
     const index = this.items.findIndex(e => e.Id == item.Id);
     this.items[index] = item;
   }
@@ -39,7 +39,7 @@ export class ListService {
     return this.items;
   }
 
-  getItem(id: number): Item | undefined {
+  getItem(id: number): Task | undefined {
     return this.items.find(e => e.Id == id);
   }
 

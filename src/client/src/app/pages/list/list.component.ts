@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from 'src/app/models/item';
+import { Task } from 'src/app/models/task';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ListService } from 'src/app/services/list.service';
 })
 export class ListComponent implements OnInit {
   
-  items:Item[] = this.listService.getItems();
+  items:Task[] = this.listService.getItems();
 
   constructor(private listService: ListService) { }
 
