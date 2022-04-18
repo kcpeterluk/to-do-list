@@ -39,7 +39,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   onRemoveClick(): void {
-    this.listService.removeTask(this.itemForm.value.id);
+    this.listService.removeTask(this.taskId);
     this.navigateToRoot();
   }
 
