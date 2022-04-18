@@ -35,15 +35,19 @@ export class EditTaskComponent implements OnInit {
 
   onSubmit(): void {
     this.listService.updateTask(this.taskId, this.itemForm.value.description);
-    this.router.navigate(['/'], {relativeTo:this.route});
+    this.navigateToRoot();
   }
 
   onRemoveClick(): void {
     this.listService.removeTask(this.itemForm.value.id);
-    this.router.navigate(['/'], {relativeTo:this.route});
+    this.navigateToRoot();
   }
 
   onCancelClick(): void {
+    this.navigateToRoot();
+  }
+
+  private navigateToRoot() {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
 

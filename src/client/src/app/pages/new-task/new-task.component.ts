@@ -25,10 +25,14 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit(): void {
     this.listService.newTask(this.itemForm.value.description);
-    this.router.navigate(['/'], {relativeTo:this.route});
+    this.navigateToRoot();
   }
 
   onCancelClick(): void {
+    this.navigateToRoot();
+  }
+
+  private navigateToRoot() {
     this.router.navigate(['/'], {relativeTo:this.route});
   }
   
