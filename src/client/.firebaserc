@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "unicorn-to-do-list": {
+      "hosting": {
+        "to-do-list": [
+          "unicorn-to-do-list"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "unicorn-to-do-list"
+  }
+}
