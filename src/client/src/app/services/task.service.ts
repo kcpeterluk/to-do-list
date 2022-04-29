@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { v4 as uuid } from "uuid";
+
 import { Task } from '../models/task';
 
 @Injectable({
@@ -6,51 +11,41 @@ import { Task } from '../models/task';
 })
 export class TaskService {
   
-  private tasks: Task[] = [
-    { Id: 1, Description: "My item 1", Done: false },
-    { Id: 2, Description: "My item 2", Done: false },
-    { Id: 3, Description: "My item 3", Done: false },
-    { Id: 4, Description: "My item 4", Done: false }
-  ];
+  private conatainerId: string = 'todo';
+  private tasks$: Observable<Task[]>;
 
-  constructor() { }
+  constructor(private store: AngularFirestore) {
+    this.tasks$ = this.store.collection(this.conatainerId).valueChanges({ idField: 'id'}) as Observable<Task[]>;
+   }
 
   newTask(description: string) {
-    const nextId = Math.max(...this.tasks.map(e => e.Id)) + 1;
-    const item: Task = {
-      Id: nextId,
-      Description: description,
-      Done: false
+    const task: Task = {
+      id: uuid(),
+      description: description,
+      done: false
     };
-    this.tasks.push(item);
+    console.log("Task to add", task);
+    this.store.collection(this.conatainerId).add(task);
   }
 
-  updateTask(id: number, description: string) {
-    const index = this.tasks.findIndex(e => e.Id == id);
-    this.tasks[index].Description = description;
+  async updateTask(task: Task) {
+    console.log("Task to update", task);
+    await this.store.collection(this.conatainerId).doc(task.id).update(task);
   }
 
-  toggleTaskStatus(id: number) {
-    const index = this.tasks.findIndex(e => e.Id == id);
-    this.tasks[index].Done = !this.tasks[index].Done;
+  async removeTask(id: string) {
+    console.log("Task to delete", id);
+    await this.store.collection(this.conatainerId).doc(id).delete();
   }
 
-  removeTask(id: number) {
-    const index = this.tasks.findIndex(e => e.Id == id);
-    this.tasks.splice(index, 1);
+  getTasks(): Observable<Task[]> {
+    return this.tasks$;
   }
 
-  getTasks() {
-    return this.tasks;
-  }
-
-  getTask(id: number): Task | undefined {
-    return this.tasks.find(e => e.Id == id);
-  }
-
-  clearTasks() {
-    this.tasks = [];
-    return this.tasks;
+  getTask(id: string): Observable<Task> {
+    return this.tasks$.pipe(
+      map((tasks: Task[]) => tasks.find(task => task.id === id)!)
+    );
   }
 
 }

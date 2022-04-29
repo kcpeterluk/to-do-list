@@ -1,13 +1,13 @@
 <p>
   <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let item of items, index as i">
-      <button mat-icon-button aria-label="done icon" (click)="toggleTaskStatus(item.Id)">
-        <mat-icon *ngIf="!item.Done; else doneIconBlock">radio_button_unchecked</mat-icon>
+    <mat-list-item role="listitem" *ngFor="let task of tasks$ | async, index as i">
+      <button mat-icon-button aria-label="done icon" (click)="toggleTaskStatus(task)">
+        <mat-icon *ngIf="!task.done; else doneIconBlock">radio_button_unchecked</mat-icon>
         <ng-template #doneIconBlock><img alt="Unicorn image" src="/assets/img/favicon-16x16.png"></ng-template>
       </button>
-      <span [ngClass]="{'task-done': item.Done}">{{ item.Description }}</span>
+      <span [ngClass]="{'task-done': task.done}">{{ task.description }}</span>
       <span class="spacer"></span>
-      <a mat-icon-button aria-label="add to do list icon" routerLink="/edit/{{item.Id}}">
+      <a mat-icon-button aria-label="add to do list icon" routerLink="/edit/{{task.id}}">
         <mat-icon>edit</mat-icon>
       </a>
     </mat-list-item>

@@ -1,15 +1,37 @@
 <div>
-  <form class="item-form" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+  <form class="item-form" (ngSubmit)="onSubmit()" #f="ngForm">
     <mat-form-field class="item-form-field" appearance="fill">
       <mat-label for="description">Task:</mat-label>
-      <input matInput placeholder="Add a task" id="description" type="text" formControlName="description">
+      <input
+        matInput
+        placeholder="Enter task description"
+        id="description"
+        type="text"
+        name="description"
+        [(ngModel)]="task.description"
+      />
     </mat-form-field>
 
     <div class="button-container">
-      <button mat-raised-button color="primary" type="submit">Update</button>
-      <button mat-raised-button color="warn" type="button" (click)="onRemoveClick()">Remove</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="onRemoveClick()"
+      >
+        Remove
+      </button>
       <span class="spacer"></span>
-      <button mat-raised-button type="button" (click)="onCancelClick()">Cancel</button>
+      <button mat-raised-button type="button" (click)="onCancelClick()">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

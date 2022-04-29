@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { TaskService } from 'src/app/services/task.service';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-edit-task',
@@ -10,36 +14,49 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class EditTaskComponent implements OnInit {
 
-  private taskId: number = 0;
+  private task$!: Observable<Task>;
+  private subscription!: Subscription;
+  task: Task = { id: "", description: "", done: false };
 
-  itemForm = this.formBuilder.group({
-    description: ''
-  });
+  // taskForm = this.formBuilder.group({
+  //   description: ''
+  // });
 
   constructor(
-    private listService: TaskService,
-    private formBuilder: FormBuilder,
+    private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    const routeParams = this.route.snapshot.paramMap;
-    this.taskId = Number(routeParams.get('id'));
-    const item = this.listService.getTask(this.taskId);
-    if (item)
-      this.itemForm = this.formBuilder.group({
-        description: item.Description,
-      });
+    this.task$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.taskService.getTask(params.get('id')!))
+    );
+    this.subscription = this.task$.subscribe((task: Task) => {
+      this.task = task;
+      console.log(this.task);
+    });
+    // const routeParams = this.route.snapshot.paramMap;
+    // this.taskId = routeParams.get('id');
+    // const item = this.taskService.getTask(this.taskId);
+    // if (item)
+    //   this.itemForm = this.formBuilder.group({
+    //     description: item.description,
+    //   });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onSubmit(): void {
-    this.listService.updateTask(this.taskId, this.itemForm.value.description);
+    this.taskService.updateTask(this.task);
     this.navigateToRoot();
   }
 
   onRemoveClick(): void {
-    this.listService.removeTask(this.taskId);
+    this.taskService.removeTask(this.task.id);
     this.navigateToRoot();
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -9,14 +10,17 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class ListComponent implements OnInit {
   
-  items:Task[] = this.taskService.getTasks();
+  tasks$!: Observable<Task[]>;
 
   constructor(private taskService: TaskService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.tasks$ = this.taskService.getTasks();
+  }
 
-  toggleTaskStatus(id: number) {
-    this.taskService.toggleTaskStatus(id);
+  toggleTaskStatus(task: Task) {
+    task.done = !task.done;
+    this.taskService.updateTask(task);
   }
 
 }
