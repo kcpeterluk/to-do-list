@@ -34,8 +34,10 @@ export class EditTaskComponent implements OnInit {
         this.taskService.getTask(params.get('id')!))
     );
     this.subscription = this.task$.subscribe((task: Task) => {
-      this.task = task;
-      console.log(this.task);
+      if (task)
+        this.task = task;
+      else
+        this.task = { id: "", description: "", done: false };
     });
     // const routeParams = this.route.snapshot.paramMap;
     // this.taskId = routeParams.get('id');
@@ -56,7 +58,8 @@ export class EditTaskComponent implements OnInit {
   }
 
   onRemoveClick(): void {
-    this.taskService.removeTask(this.task.id);
+    this.taskService.removeTask(this.task.id)
+      .then(() => this.subscription.unsubscribe());
     this.navigateToRoot();
   }
 

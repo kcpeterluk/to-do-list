@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { getAuth } from 'firebase/auth';
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { v4 as uuid } from "uuid";
@@ -11,11 +12,15 @@ import { Task } from '../models/task';
 })
 export class TaskService {
   
-  private conatainerId: string = 'todo';
+  private userCollectionId: string = 'user';
+  private taskCollectionId: string = 'task';
+  private taskRef: AngularFirestoreCollection<unknown>;
   private tasks$: Observable<Task[]>;
 
   constructor(private store: AngularFirestore) {
-    this.tasks$ = this.store.collection(this.conatainerId).valueChanges({ idField: 'id'}) as Observable<Task[]>;
+    const auth = getAuth();
+    this.taskRef = this.store.collection(this.userCollectionId).doc(auth.currentUser?.uid).collection(this.taskCollectionId);
+    this.tasks$ = this.taskRef.valueChanges({ idField: 'id'}) as Observable<Task[]>;
    }
 
   newTask(description: string) {
@@ -24,18 +29,15 @@ export class TaskService {
       description: description,
       done: false
     };
-    console.log("Task to add", task);
-    this.store.collection(this.conatainerId).add(task);
+    this.taskRef.add(task);
   }
 
   async updateTask(task: Task) {
-    console.log("Task to update", task);
-    await this.store.collection(this.conatainerId).doc(task.id).update(task);
+    await this.taskRef.doc(task.id).update(task);
   }
 
   async removeTask(id: string) {
-    console.log("Task to delete", id);
-    await this.store.collection(this.conatainerId).doc(id).delete();
+    await this.taskRef.doc(id).delete();
   }
 
   getTasks(): Observable<Task[]> {

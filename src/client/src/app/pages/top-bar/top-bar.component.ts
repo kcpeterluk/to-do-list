@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public ngFireAuth: AngularFireAuth, 
+    private authService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  async signOut() {
+    await this.authService.signOut();
+    this.router.navigate(['/'], {relativeTo:this.route});
   }
 
 }

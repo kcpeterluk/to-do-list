@@ -3,8 +3,9 @@
     <img class="top-bar-logo" alt="Unicorn Logo" src="/assets/img/favicon-32x32.png">
     <span>Unicorn To Do List</span>
     <span class="spacer"></span>
-    <a mat-icon-button aria-label="add to do list icon" routerLink="/new">
+    <a *ngIf="ngFireAuth.user | async as user" mat-icon-button aria-label="add to do list icon" routerLink="tasks/new">
       <mat-icon>add</mat-icon>
     </a>
+    <button *ngIf="ngFireAuth.user | async as user" (click)="signOut()">Sign Out</button>
   </mat-toolbar>
 </div>

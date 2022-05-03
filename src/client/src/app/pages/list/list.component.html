@@ -7,7 +7,7 @@
       </button>
       <span [ngClass]="{'task-done': task.done}">{{ task.description }}</span>
       <span class="spacer"></span>
-      <a mat-icon-button aria-label="add to do list icon" routerLink="/edit/{{task.id}}">
+      <a mat-icon-button aria-label="add to do list icon" routerLink="{{task.id}}">
         <mat-icon>edit</mat-icon>
       </a>
     </mat-list-item>
