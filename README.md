@@ -2,7 +2,7 @@
 
 Unicorn To To List app is a hobby project for getting to understand the basic of Firebase Hosting, Firestore Database and Firebase Authentication with Angular.
 
-To see a live demo of the app, go to: [https://unicorn-to-do-list.web.app](https://unicorn-to-do-list.web.app){:target="_blank"}
+To see a live demo of the app, go to: <a href="https://unicorn-to-do-list.web.app" target="_blank">https://unicorn-to-do-list.web.app</a>
 
 The app covers all the basic CRUD operations to Firestore Database:
 
